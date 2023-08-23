@@ -380,7 +380,7 @@ Cannot maintain strict compatibility:
 * Fixing clear bugs
 * Existing code depends on the old algorithm or the buggy behavior
 
-> Keeping older Go programs executing the same way even when built with newer Go distributions
+> Keeping older Go programs executing the same way even when built with newer Go distributions.
 
 
 ---
@@ -520,7 +520,7 @@ Forward compatibility is building newer Go code with an older Go toolchain.
 
 We are lucky that the following program failed. It could silently succeed.
 
-Go 1.21.0 understands that it cannot even build code that says go 1.21.1 in its go.mod file
+Go 1.21.0 understands that it cannot even build code that says go 1.21.1 in its go.mod file.
 
 ```bash
 $ cat go.mod
@@ -587,7 +587,6 @@ go env -w GOTOOLCHAIN=go1.21.1+auto
 ```
 
 ---
-
 ## Links
 
 * https://go.dev/blog/slog
@@ -595,3 +594,9 @@ go env -w GOTOOLCHAIN=go1.21.1+auto
 * https://github.com/golang/go/issues/56986
 * https://go.dev/blog/toolchain
 * https://github.com/golang/go/issues/57001
+
+---
+## Thank you
+
+### Q&A
+

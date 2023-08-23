@@ -1,4 +1,18 @@
+---
+author: Hossein Zolfi
+date: MMMM dd, YYYY
+paging: Slide %d / %d
+---
+
 # Go 1.21: What's New and Why You Should Care
+
+## Welcome
+
+Hossein Zolfi
+
+Software Engineer
+
+LinkedIn: https://www.linkedin.com/in/hossein-zolfi-97786828/
 
 ---
 
@@ -342,6 +356,7 @@ Go's emphasis on backwards compatibility is one of its key strengths.
 
 > It is intended that programs written to the Go 1 specification will continue to
 compile and run correctly, unchanged, over the lifetime of that specification.
+> … Go programs that work today should continue to work even as future releases of Go 1 arise.
 
 ---
 ## Backward Compatibility
@@ -497,3 +512,86 @@ panicnil=1
 ─❯ go version -m ./example | grep GODEBUG
 	build	DefaultGODEBUG=panicnil=1
 ```
+
+---
+## Forward Compatibility
+
+Forward compatibility is building newer Go code with an older Go toolchain.
+
+We are lucky that the following program failed. It could silently succeed.
+
+Go 1.21.0 understands that it cannot even build code that says go 1.21.1 in its go.mod file
+
+```bash
+$ cat go.mod
+go 1.18
+module example
+
+$ go version
+go version go1.17
+
+$ go build
+# example
+./x.go:2:6: missing function body
+./x.go:2:7: syntax error: unexpected [, expecting (
+note: module requires Go 1.18
+$
+```
+
+---
+## Forward Compatibility
+
+### Toolchain Management
+Go 1.21 downloads newer toolchains when needed.
+> built in to the core go command instead of being a separate tool such as `rustup` or `nvm`.
+
+```bash
+─❯ cat go.mod
+module example
+
+go 1.999
+
+─❯ go version
+go: downloading go1.999 (darwin/arm64)
+^C
+
+
+─❯ go run .
+go: downloading go1.999 (darwin/arm64)
+^C
+```
+
+---
+## Forward Compatibility
+
+### Toolchain Management
+
+To update the go line
+```bash
+go get go@1.21.0
+```
+
+Update the toolchain line
+```bash
+go get toolchain@go1.21.0
+```
+
+You can force the use of a specific Go toolchain version using the GOTOOLCHAIN environment variable.
+```bash
+GOTOOLCHAIN=go1.20.4 go test
+```
+
+Change your system default by setting a default GOTOOLCHAIN:
+```bash
+go env -w GOTOOLCHAIN=go1.21.1+auto
+```
+
+---
+
+## Links
+
+* https://go.dev/blog/slog
+* https://go.dev/blog/compat
+* https://github.com/golang/go/issues/56986
+* https://go.dev/blog/toolchain
+* https://github.com/golang/go/issues/57001

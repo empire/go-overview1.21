@@ -382,6 +382,34 @@ Cannot maintain strict compatibility:
 
 > Keeping older Go programs executing the same way even when built with newer Go distributions.
 
+---
+## Backward Compatibility
+
+Go's emphasis on backwards compatibility is one of its key strengths.
+
+> [It] is impossible to guarantee that no future change will break any program.
+
+Two main approaches they’ve used so far: API checking and testing.
+
+### API Checking
+
+
+```go
+package main
+
+import "os"
+
+func main() {
+    os.Stdout.WriteString("hello, world\n")
+}
+```
+* We can’t remove the package os
+* We can’t remove the global variable os.Stdout, which is an *os.File
+* We also can’t remove the os.File method WriteString.
+
+### Testing
+
+> run existing tests against the development version of the next Go release
 
 ---
 ## Backward Compatibility

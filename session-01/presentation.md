@@ -538,7 +538,7 @@ panicnil=1
 ─❯ go build .
 
 ─❯ go version -m ./example | grep GODEBUG
-	build	DefaultGODEBUG=panicnil=1
+  build  DefaultGODEBUG=panicnil=1
 ```
 
 ---
